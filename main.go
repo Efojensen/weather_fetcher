@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -36,5 +37,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(responseData))
+	var responseObject Response
+	json.Unmarshal(responseData, &responseObject)
+
+	for index := range responseObject.Pokemon {
+		fmt.Printf("Species name %v\n", responseObject.Pokemon[index].Species.Name)
+	}
 }
